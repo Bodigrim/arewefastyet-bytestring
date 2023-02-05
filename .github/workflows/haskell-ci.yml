@@ -143,7 +143,7 @@ jobs:
           echo "packages: libperf-master" >> cabal.project
           echo "packages: libperf-master/tasty-perfbench" >> cabal.project
           echo "allow-newer: tagged:template-haskell" >> cabal.project
-          echo "allow-newer: libperf:base, tasty-perfbench:base" >> cabal.project
+          echo "allow-newer: *:base" >> cabal.project
           cat cabal.project
       - name: dump install plan
         run: |
@@ -157,4 +157,8 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ matrix.compiler }}-
       - name: bench
         run: |
-          $CABAL v2-bench $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --test-show-details=direct
+          $CABAL v2-bench $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --test-show-details=direct --benchmark-options="--csv bytestring-$HCVER.csv"
+      - uses: actions/upload-artifact@master
+        with:
+          name: bytestring-$HCVER.csv
+          path: bytestring-$HCVER.csv
