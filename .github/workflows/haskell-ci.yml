@@ -36,6 +36,9 @@ jobs:
             allow-failure: false
       fail-fast: true
     steps:
+      - name: perf_event_paranoid
+        run: |
+          cat /proc/sys/kernel/perf_event_paranoid
       - name: apt
         run: |
           apt-get update
@@ -158,7 +161,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ matrix.compiler }}-
       - name: bench
         run: |
-          $CABAL v2-bench $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --test-show-details=direct --benchmark-options="--csv bytestring-$HCVER.csv"
+          $CABAL run bytestring-bench $ARG_COMPILER -- --csv bytestring-$HCVER.csv
       - uses: actions/upload-artifact@master
         with:
           name: bytestring-$HCVER.csv
