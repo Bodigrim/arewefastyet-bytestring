@@ -131,7 +131,7 @@ jobs:
           cabal-plan --version
       - name: download stuff
         run: |
-          cabal unpack bytestring-0.11.4.0
+          $CABAL unpack bytestring-0.11.4.0
           sed -i 's/tasty-bench/tasty-perfbench/g' bytestring-0.11.4.0/bytestring.cabal
           curl -sL https://github.com/phadej/libperf/archive/refs/heads/master.zip > libperf.zip
           unzip libperf.zip
