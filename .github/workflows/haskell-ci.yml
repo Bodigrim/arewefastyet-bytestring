@@ -39,6 +39,8 @@ jobs:
       - name: perf_event_paranoid
         run: |
           cat /proc/sys/kernel/perf_event_paranoid
+          sysctl -w kernel.perf_event_paranoid=-1
+          cat /proc/sys/kernel/perf_event_paranoid
       - name: apt
         run: |
           apt-get update
