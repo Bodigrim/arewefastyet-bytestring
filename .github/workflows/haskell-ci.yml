@@ -144,6 +144,7 @@ jobs:
           echo "packages: libperf-master/tasty-perfbench" >> cabal.project
           echo "allow-newer: tagged:template-haskell" >> cabal.project
           echo "allow-newer: *:base" >> cabal.project
+          echo "constraints: unix >= 2.7" >> cabal.project
           cat cabal.project
       - name: dump install plan
         run: |
